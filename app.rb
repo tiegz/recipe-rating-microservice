@@ -56,4 +56,19 @@ class RecipeRatingsApp < Sinatra::Base
       recipe_rating.to_json
     end
   end
+
+  # Example response: 
+  #   {"recipe_id": "111", "average_rating": 7.22}
+  get "/retrieve_average_rating/:id" do
+    scope = RecipeRating.where(recipe_id: params["id"])
+
+    if scope.count.zero?
+      status 404 # not found
+      { errors: ["Recipe ratings not found for recipe_id='#{params["id"]}'"] }.to_json
+    else
+      average_rating = RecipeRating.where(recipe_id: params["id"]).average(:rating)
+      status 200
+      {recipe_id: params["id"], ratings_count: scope.count, average_rating: average_rating}.to_json
+    end
+  end
 end
