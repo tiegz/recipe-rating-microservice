@@ -17,16 +17,24 @@ FIXED_USER_ID = "565ebd10-2135-43ec-acc7-785f0d00fc8a"
 
 class RecipeRatingsApp < Sinatra::Base
   # Example response:
-  # Response: {"recipe_id": "111", "rating": 10}
-  get "/retrieve_rating/:id" do
-    recipe_rating = RecipeRating.find_by(user_id: FIXED_USER_ID, recipe_id: params["id"])
+  #   [
+  #     {}
+  #   ]
 
-    if recipe_rating.nil?
+  # Example response:
+  #   {"recipe_id": "111", "rating": 10}
+  get "/retrieve_latest_ratings/:id" do
+    scope = RecipeRating.where(recipe_id: params["id"])
+
+    if scope.count.zero?
       status 404 # not found
-      { errors: ["Recipe rating not found for recipe_id='#{params["id"]}'"] }.to_json
+      { errors: ["Recipe ratings not found for recipe_id='#{params["id"]}'"] }.to_json
     else
+      recipe_ratings = scope.order("updated_at DESC")
+        .limit(20)
+        .map { |rr| rr.slice(:recipe_id, :rating, :comment) }
       status 200
-      recipe_rating.to_json
+      recipe_ratings.to_json
     end
   end
 
