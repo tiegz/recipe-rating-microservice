@@ -10,6 +10,7 @@ require 'models/recipe_rating'
 
 set :database, 'sqlite3:database.db'
 set :bind, '0.0.0.0'
+set :port, 9292
 
 # Simulate a logged-in user by always using the same user id, for now.
 FIXED_USER_ID = "565ebd10-2135-43ec-acc7-785f0d00fc8a"
