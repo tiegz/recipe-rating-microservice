@@ -17,9 +17,18 @@ FIXED_USER_ID = "565ebd10-2135-43ec-acc7-785f0d00fc8a"
 
 class RecipeRatingsApp < Sinatra::Base
   # Example response:
-  #   [
-  #     {}
-  #   ]
+  # Response: {"recipe_id": "111", "rating": 10}
+  get "/retrieve_rating/:id" do
+    recipe_rating = RecipeRating.find_by(user_id: FIXED_USER_ID, recipe_id: params["id"])
+
+    if recipe_rating.nil?
+      status 404 # not found
+      { errors: ["Recipe rating not found for recipe_id='#{params["id"]}'"] }.to_json
+    else
+      status 200
+      recipe_rating.to_json
+    end
+  end
 
   # Example response:
   #   {"recipe_id": "111", "rating": 10}
