@@ -147,3 +147,32 @@ curl --silent http://localhost:9292/retrieve_latest_ratings/1
   }
 ]
 ```
+
+## API Diagram
+
+```mermaid
+sequenceDiagram
+    activate Microservice
+    User->>+Microservice: POST /submit_rating
+    Note right of Microservice: Find-or-create the user's rating for<br> the given recipe <br>and set the rating.
+    Microservice->>+User: 201 Created:<br> { "rating": "3", ... }
+    deactivate Microservice
+
+    activate Microservice
+    User->>+Microservice: <br><br>GET /retrieve_rating/RECIPE_ID
+    Note right of Microservice: Find the user's rating for the<br>given recipe.
+    Microservice->>+User: 200 OK: <br>{ "rating": "3", "recipe_id": RECIPE_ID, ... }
+    deactivate Microservice
+
+    activate Microservice
+    User->>+Microservice: <br><br>GET /retrieve_average_rating/RECIPE_ID
+    Note right of Microservice: Compute the average rating for the<br>given recipe.
+    Microservice->>+User: 200 OK:<br>{ "recipe_id": RECIPE_ID, "average_rating": "3.8", ... }
+    deactivate Microservice
+
+    activate Microservice
+    User->>+Microservice: <br><br>GET /retrieve_latest_ratings/RECIPE_ID
+    Note right of Microservice: Find the latest 20 ratings for the<br>given recipe.
+    Microservice->>+User: 200 OK:<br>[{ "recipe_id": RECIPE_ID, "rating": "3.8", ... }, ...]
+    deactivate Microservice
+```
