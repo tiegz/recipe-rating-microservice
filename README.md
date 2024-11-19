@@ -2,7 +2,7 @@
 
 This app is a JSON HTTP REST API that allows users to submit and retrieve ratings for recipes.
 
-⚠️ Currently, the microservice assumes the same user is logged in, and uses the same dummy UUID for all user_id parameters.
+⚠️ Currently, the microservice assumes the same user is logged in, and uses a dummy UUID called `FIXED_USER_ID` when fetching or storing data.
 
 The app is written in the Ruby programming language, and can be run in two ways:
 
