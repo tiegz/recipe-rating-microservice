@@ -4,6 +4,8 @@ This app is a JSON HTTP REST API that allows users to submit and retrieve rating
 
 ⚠️ Currently, the microservice assumes the same user is logged in, and uses a dummy UUID called `FIXED_USER_ID` when fetching or storing data.
 
+### Running the microservice
+
 The app is written in the Ruby programming language, and can be run in two ways:
 
 #### Via Ruby:
