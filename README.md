@@ -6,14 +6,21 @@ This app is a JSON HTTP REST API that allows users to submit and retrieve rating
 
 ### Running the microservice
 
-The app is written in the Ruby programming language, and can be run in two ways:
+First ensure that you have ruby 3.1.6 installed, either through Homebrew, your local OS package manager, or [directly by downloading](https://www.ruby-lang.org/en/downloads/).
+
+Then setup the app:
+
+```shell
+bundle install
+bundle exec rake db:create
+bundle exec rake db:migrate
+```
+
+Running the server can be done in two ways:
 
 #### Via Ruby:
 
-```
-bundle install
-bundle exec puma config.ru --log-requests
-```
+```bundle exec puma config.ru --log-requests```
 
 #### Via Docker:
 
