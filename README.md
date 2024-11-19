@@ -23,7 +23,13 @@ bundle exec puma config.ru --log-requests
 
 Submit your rating for a recipe with an HTTP request to the path "/submit_rating".
 
-##### Example
+##### Request Parameters:
+
+* **recipe_id**: The id of the recipe you want to rate. (required)
+* **rating**: The id of the recipe you want to rate. (required)
+* **optional_comment**: The id of the recipe you want to rate. (optional)
+
+##### Example Request
 
 ```shell
 curl --silent -X POST \
@@ -37,7 +43,11 @@ curl --silent -X POST \
 
 Retrieve your rating for a recipe using an HTTP request to the path "/retrieve_rating/RECIPE_ID", where RECIPE_ID is the id of the recipe.
 
-##### Example
+##### Request Parameters:
+
+* none
+
+##### Example Request
 
 ```shell
 curl --silent http://localhost:9292/retrieve_rating/1
@@ -47,7 +57,11 @@ curl --silent http://localhost:9292/retrieve_rating/1
 
 Retrieve the average rating for a recipe using an HTTP request to the path "/retreive_average_rating/RECIPE_ID", where RECIPE_ID is the id of the recipe.
 
-##### Example
+##### Request Parameters:
+
+* none
+
+##### Example Request
 
 ```shell
 curl --silent http://localhost:9292/retreive_average_rating/1
@@ -57,7 +71,11 @@ curl --silent http://localhost:9292/retreive_average_rating/1
 
 Retrieve the latest 20 ratings for a recipe using an HTTP request to the path "/retrieve_latest_ratings/RECIPE_ID", where RECIPE_ID is the id of the recipe.
 
-##### Example
+##### Request Parameters:
+
+* none
+
+##### Example Request
 
 ```shell
 curl --silent http://localhost:9292/retrieve_latest_ratings/1
