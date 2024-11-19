@@ -13,7 +13,7 @@ set :bind, '0.0.0.0'
 set :port, 9292
 
 # Simulate a logged-in user by always using the same user id, for now.
-FIXED_USER_ID = "565ebd10-2135-43ec-acc7-785f0d00fc8a"
+FIXED_USER_ID = "085ebd10-2135-43ec-acc7-785f0d00fc8a"
 
 class RecipeRatingsApp < Sinatra::Base
   # Example response:
@@ -41,7 +41,7 @@ class RecipeRatingsApp < Sinatra::Base
     else
       recipe_ratings = scope.order("updated_at DESC")
         .limit(20)
-        .map { |rr| rr.slice(:recipe_id, :rating, :comment) }
+        .map { |rr| rr.slice(:recipe_id, :rating, :comment, :user_id) }
       status 200
       recipe_ratings.to_json
     end
@@ -58,12 +58,9 @@ class RecipeRatingsApp < Sinatra::Base
     errors << "'rating' is missing" if rating.nil?
     errors << "'rating' is invalid (valid values: 1-10)" if rating && !(0..10).include?(rating)
 
-    recipe_rating = RecipeRating.find_or_initialize_by(
-      user_id: FIXED_USER_ID,
-      recipe_id: recipe_id
-    ) do |rr|
-      rr.id ||= SecureRandom.uuid
-    end
+    recipe_rating = RecipeRating
+      .find_or_initialize_by(user_id: FIXED_USER_ID, recipe_id: recipe_id)
+    recipe_rating.id ||= SecureRandom.uuid
     recipe_rating.update!(rating: rating, comment: optional_comment)
 
     if errors.size > 0
