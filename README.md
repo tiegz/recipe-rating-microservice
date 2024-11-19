@@ -2,9 +2,9 @@
 
 This app is a JSON HTTP REST API that allows users to submit and retrieve ratings for recipes.
 
-Currently, the microservice assumes the same user is logged in, and uses the same dummy UUID for all user_id parameters.
+⚠️ Currently, the microservice assumes the same user is logged in, and uses the same dummy UUID for all user_id parameters.
 
-It can be run in two ways:
+The app is written in the Ruby programming language, and can be run in two ways:
 
 #### Via Ruby:
 
@@ -17,9 +17,9 @@ bundle exec puma config.ru --log-requests
 
 `docker run -p 9292:9292 -it $(docker build -q .)`
 
-### API Communication Contract
+## API Communication Contract
 
-#### POST /submit_rating
+### POST /submit_rating
 
 Submit your rating for a recipe with an HTTP request to the path "/submit_rating".
 
@@ -33,7 +33,7 @@ curl --silent -X POST \
   http://localhost:9292/submit_rating
 ```
 
-#### GET /retrieve_rating/RECIPE_ID
+### GET /retrieve_rating/RECIPE_ID
 
 Retrieve your rating for a recipe using an HTTP request to the path "/retrieve_rating/RECIPE_ID", where RECIPE_ID is the id of the recipe.
 
@@ -43,7 +43,7 @@ Retrieve your rating for a recipe using an HTTP request to the path "/retrieve_r
 curl --silent http://localhost:9292/retrieve_rating/1
 ```
 
-#### GET /retreive_average_rating/RECIPE_ID
+### GET /retreive_average_rating/RECIPE_ID
 
 Retrieve the average rating for a recipe using an HTTP request to the path "/retreive_average_rating/RECIPE_ID", where RECIPE_ID is the id of the recipe.
 
@@ -53,8 +53,7 @@ Retrieve the average rating for a recipe using an HTTP request to the path "/ret
 curl --silent http://localhost:9292/retreive_average_rating/1
 ```
 
-
-#### GET /retrieve_latest_ratings/RECIPE_ID
+### GET /retrieve_latest_ratings/RECIPE_ID
 
 Retrieve the latest 20 ratings for a recipe using an HTTP request to the path "/retrieve_latest_ratings/RECIPE_ID", where RECIPE_ID is the id of the recipe.
 
