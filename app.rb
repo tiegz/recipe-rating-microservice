@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require "bundler/setup" #needed to add this line for the env setup to work on my machine!! *** using github codespaces
 Bundler.require
 
 $LOAD_PATH << "."
